@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>KR Consulting Online · AI 상세 리포트 (샘플)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+  @font-face {
+    font-family: "Pretendard";
+    font-weight: 45 920;
+    font-display: swap;
+    src: url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/PretendardVariable.woff2") format("woff2-variations");
+  }
+  :root {
+    --navy: #051c2c;
+    --navy-deep: #030f1a;
+    --cyan: #00a9f4;
+    --gray: #f3f4f4;
+    --line: rgba(5,28,44,0.12);
+    --line-strong: rgba(5,28,44,0.22);
+    --muted: rgba(5,28,44,0.55);
+    --amber: #fbbf24;
+    --emerald: #047857;
+    --rose: #b91c1c;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    font-family: "Pretendard", system-ui, -apple-system, sans-serif;
+    color: var(--navy); background: #ebeef1; line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+  .serif { font-family: "Playfair Display", Georgia, serif; font-weight: 400; }
+  .num { font-variant-numeric: tabular-nums; font-feature-settings: "tnum"; }
+  .doc {
+    max-width: 920px; margin: 32px auto; background: #fff;
+    box-shadow: 0 24px 60px -20px rgba(5,28,44,0.25), 0 8px 16px -4px rgba(5,28,44,0.08);
+  }
+  /* ---------- COVER ---------- */
+  .cover {
+    background: var(--navy); color: #fff; padding: 80px 64px 64px; position: relative; overflow: hidden;
+  }
+  .cover::after {
+    content: ""; position: absolute; top: -80px; right: -120px; width: 480px; height: 480px;
+    background: radial-gradient(circle, rgba(0,169,244,0.18) 0%, transparent 60%);
+  }
+  .cover::before {
+    content: ""; position: absolute; bottom: 0; left: 0; right: 0; height: 1px;
+    background: linear-gradient(to right, transparent, var(--cyan), transparent);
+  }
+  .brand-row { display:flex; align-items:center; gap:14px; margin-bottom:80px; position:relative; z-index:1; }
+  .brand-row .lock { font-family:"Playfair Display",Georgia,serif; font-size:24px; letter-spacing:-0.01em; }
+  .brand-row .div { width:1px; height:20px; background:rgba(255,255,255,0.3); }
+  .brand-row .tag { color:var(--cyan); font-size:10px; letter-spacing:0.28em; text-transform:uppercase; }
+  .cover .kicker {
+    display:inline-flex; align-items:center; gap:12px; color:var(--cyan);
+    font-size:10px; letter-spacing:0.32em; text-transform:uppercase; margin-bottom:32px; position:relative; z-index:1;
+  }
+  .cover .kicker .bar { width:24px; height:1px; background:var(--cyan); }
+  .cover h1 {
+    font-weight:300; font-size:clamp(32px, 5vw, 52px); line-height:1.15; letter-spacing:-0.04em; margin-bottom:16px; position:relative; z-index:1;
+  }
+  .cover h1 strong { font-weight:600; }
+  .cover h1 em { font-family:"Playfair Display",Georgia,serif; font-style:italic; font-weight:400; color:var(--cyan); }
+  .cover .pre {
+    color: rgba(255,255,255,0.55); font-size:13px; font-weight:300; margin-bottom:64px; position:relative; z-index:1;
+  }
+  .cover .ribbon {
+    display:grid; grid-template-columns: repeat(4, 1fr); gap:24px; padding-top:32px;
+    border-top:1px solid rgba(255,255,255,0.18); font-size:12px; position:relative; z-index:1;
+  }
+  .cover .ribbon .lbl { color:rgba(255,255,255,0.5); text-transform:uppercase; letter-spacing:0.18em; font-size:9px; margin-bottom:6px; }
+  .cover .ribbon .val { color:#fff; font-weight:400; }
+  .cover .ribbon .val.serif-num { font-family:"Playfair Display",Georgia,serif; font-size:18px; }
+  .seal {
+    position:absolute; top:80px; right:64px; width:120px; height:120px; border:1px solid rgba(0,169,244,0.4);
+    border-radius:50%; display:flex; flex-direction:column; align-items:center; justify-content:center; z-index:2;
+    color:var(--cyan); text-align:center;
+  }
+  .seal .top { font-size:8px; letter-spacing:0.3em; text-transform:uppercase; }
+  .seal .mid { font-family:"Playfair Display",Georgia,serif; font-size:28px; font-style:italic; margin:6px 0; color:#fff; }
+  .seal .btm { font-size:8px; letter-spacing:0.25em; text-transform:uppercase; }
+
+  /* ---------- TOC ---------- */
+  .toc { padding:64px 64px; border-bottom:1px solid var(--line); background:#fafbfc; }
+  .toc .head { display:flex; align-items:baseline; justify-content:space-between; margin-bottom:32px; }
+  .toc .head .lbl { font-size:11px; letter-spacing:0.28em; text-transform:uppercase; color:var(--muted); }
+  .toc .head .meta { font-family:"Playfair Display",Georgia,serif; font-style:italic; color:var(--muted); font-size:13px; }
+  .toc h2 { font-size:32px; font-weight:300; letter-spacing:-0.035em; margin-bottom:32px; }
+  .toc h2 strong { font-weight:600; }
+  .toc-list { display:grid; gap:0; }
+  .toc-list .row {
+    display:grid; grid-template-columns: 48px 1fr auto; gap:20px; padding:18px 0;
+    border-bottom:1px dotted var(--line); align-items:baseline;
+  }
+  .toc-list .row:hover { background:rgba(0,169,244,0.04); }
+  .toc-list .row .n { font-family:"Playfair Display",Georgia,serif; color:var(--cyan); font-size:14px; }
+  .toc-list .row .t { font-size:15px; }
+  .toc-list .row .pg { font-family:"Playfair Display",Georgia,serif; color:var(--muted); font-size:14px; }
+
+  /* ---------- CHAPTER ---------- */
+  .chapter { padding:72px 64px; border-bottom:1px solid var(--line); position:relative; }
+  .chapter .ch-head {
+    display:grid; grid-template-columns: auto 1fr; gap:32px; align-items:start; margin-bottom:40px;
+    padding-bottom:32px; border-bottom:1px solid var(--line);
+  }
+  .chapter .ch-head .num {
+    font-family:"Playfair Display",Georgia,serif; font-size:84px; line-height:0.85; color:var(--gray);
+  }
+  .chapter .ch-head .meta .lbl { font-size:11px; letter-spacing:0.25em; text-transform:uppercase; color:var(--muted); margin-bottom:10px; }
+  .chapter .ch-head .meta h2 { font-size:34px; font-weight:600; letter-spacing:-0.028em; line-height:1.2; }
+  .chapter p.lede { font-size:15px; color:var(--muted); max-width:640px; margin-bottom:24px; line-height:1.85; }
+
+  /* ---------- Exec callout ---------- */
+  .callout {
+    border-left:3px solid var(--cyan); background:var(--gray); padding:24px 28px; margin:24px 0;
+  }
+  .callout .lbl { font-size:10px; color:var(--cyan); letter-spacing:0.28em; text-transform:uppercase; margin-bottom:10px; }
+  .callout p { font-size:15px; line-height:1.85; color:var(--navy); font-weight:400; }
+  .callout p strong { font-weight:600; }
+
+  /* ---------- KPI cards ---------- */
+  .kpi-row { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:24px; }
+  .kpi { border:1px solid var(--line); padding:24px; }
+  .kpi .lbl { font-size:10px; letter-spacing:0.22em; text-transform:uppercase; margin-bottom:10px; color:var(--muted); }
+  .kpi .val { font-family:"Playfair Display",Georgia,serif; font-size:34px; line-height:1; }
+  .kpi .sub { font-size:12px; color:var(--muted); margin-top:8px; }
+  .kpi.strong .lbl { color:var(--emerald); }
+  .kpi.opp .lbl { color:var(--cyan); }
+  .kpi.risk .lbl { color:var(--rose); }
+
+  /* ---------- Cost table ---------- */
+  table.cost { width:100%; border-collapse:collapse; margin-top:24px; font-size:13px; }
+  table.cost thead th {
+    text-align:left; padding:12px 8px; font-size:10px; letter-spacing:0.2em; text-transform:uppercase;
+    color:var(--muted); border-bottom:1px solid var(--line-strong); font-weight:500;
+  }
+  table.cost tbody td { padding:14px 8px; border-bottom:1px solid var(--line); }
+  table.cost tbody td.num { font-family:"Playfair Display",Georgia,serif; text-align:right; }
+  table.cost tbody td .delta { font-size:11px; padding:2px 6px; margin-left:6px; }
+  table.cost tbody td .delta.up { color:var(--emerald); background:rgba(4,120,87,0.08); }
+  table.cost tbody td .delta.down { color:var(--rose); background:rgba(185,28,28,0.08); }
+  table.cost tfoot td { padding:14px 8px; font-weight:600; border-top:2px solid var(--navy); }
+
+  /* ---------- Priority matrix ---------- */
+  .matrix { margin-top:32px; }
+  .matrix .row {
+    display:grid; grid-template-columns: 60px 1fr 110px 110px 130px; gap:16px;
+    align-items:center; padding:18px 0; border-bottom:1px solid var(--line);
+  }
+  .matrix .row:first-child {
+    font-size:10px; letter-spacing:0.2em; text-transform:uppercase; color:var(--muted);
+    border-bottom:1px solid var(--line-strong); padding-bottom:12px;
+  }
+  .matrix .p { font-family:"Playfair Display",Georgia,serif; color:var(--cyan); font-size:18px; }
+  .matrix .t { font-size:14px; font-weight:500; }
+  .matrix .pill { font-size:11px; padding:4px 10px; display:inline-block; }
+  .matrix .pill.h { background:rgba(185,28,28,0.08); color:var(--rose); }
+  .matrix .pill.m { background:rgba(0,169,244,0.10); color:var(--cyan); }
+  .matrix .pill.l { background:var(--gray); color:var(--muted); }
+  .matrix .effect { font-family:"Playfair Display",Georgia,serif; color:var(--navy); font-weight:500; }
+
+  /* ---------- Roadmap timeline ---------- */
+  .roadmap { margin-top:32px; position:relative; }
+  .roadmap::before {
+    content:""; position:absolute; left:120px; top:8px; bottom:8px; width:1px; background:var(--line-strong);
+  }
+  .road-row { display:grid; grid-template-columns: 100px 24px 1fr; gap:16px; padding:24px 0; align-items:start; position:relative; }
+  .road-row .when {
+    font-family:"Playfair Display",Georgia,serif; font-size:18px; color:var(--cyan); text-align:right;
+  }
+  .road-row .when .sub { font-size:10px; color:var(--muted); letter-spacing:0.2em; text-transform:uppercase; display:block; margin-top:4px; }
+  .road-row .dot {
+    width:12px; height:12px; background:var(--cyan); border:3px solid #fff; border-radius:50%;
+    margin-left:6px; box-shadow:0 0 0 1px var(--cyan); margin-top:8px;
+  }
+  .road-row .body .t { font-size:16px; font-weight:600; margin-bottom:6px; }
+  .road-row .body .d { font-size:13px; color:var(--muted); line-height:1.7; }
+  .road-row .body ul { margin-top:8px; padding-left:18px; font-size:13px; color:var(--muted); }
+  .road-row .body ul li { margin-bottom:4px; }
+
+  /* ---------- Quote ---------- */
+  .founder {
+    background:var(--gray); padding:80px 64px; position:relative; overflow:hidden;
+  }
+  .founder::before {
+    content:""; position:absolute; top:-60px; right:-60px; width:300px; height:300px;
+    background: radial-gradient(circle, rgba(0,169,244,0.10) 0%, transparent 60%);
+  }
+  .founder .grid { display:grid; grid-template-columns: 0.6fr 1fr; gap:48px; align-items:center; position:relative; z-index:1; }
+  .founder .photo-wrap { position:relative; }
+  .founder .photo-wrap::after {
+    content:""; position:absolute; top:-12px; left:-12px; right:12px; bottom:12px; background:rgba(5,28,44,0.05); z-index:0;
+  }
+  .founder .photo { aspect-ratio: 4/5; overflow:hidden; position:relative; z-index:1; }
+  .founder .photo img { width:100%; height:100%; object-fit:cover; object-position:top; display:block; }
+  .founder .badge {
+    position:absolute; bottom:-12px; right:-12px; background:var(--navy); color:#fff; padding:12px 16px; z-index:2;
+  }
+  .founder .badge .lbl { font-size:9px; color:var(--cyan); letter-spacing:0.25em; text-transform:uppercase; margin-bottom:2px; }
+  .founder .badge .yr { font-family:"Playfair Display",Georgia,serif; font-size:24px; }
+  .founder .qmark { font-family:"Playfair Display",Georgia,serif; color:var(--cyan); font-size:96px; line-height:0.7; margin-bottom:24px; }
+  .founder blockquote {
+    font-size:clamp(22px, 2.6vw, 32px); font-weight:300; line-height:1.4; letter-spacing:-0.025em; margin-bottom:32px;
+  }
+  .founder blockquote em { font-family:"Playfair Display",Georgia,serif; font-style:italic; font-weight:400; }
+  .founder blockquote strong { font-weight:600; }
+  .founder .signing { padding-top:24px; border-top:1px solid rgba(5,28,44,0.18); display:flex; align-items:flex-end; justify-content:space-between; gap:16px; }
+  .founder .signing .who .name { font-weight:600; }
+  .founder .signing .who .role { font-size:12px; color:var(--muted); margin-top:4px; }
+  .founder .signing .stamp { text-align:right; font-size:10px; color:var(--muted); letter-spacing:0.2em; text-transform:uppercase; }
+  .founder .signing .stamp .big { font-family:"Playfair Display",Georgia,serif; font-style:italic; font-size:18px; color:var(--navy); display:block; margin-top:4px; letter-spacing:0; text-transform:none; }
+
+  /* ---------- Methodology ---------- */
+  .method { padding:64px 64px; background:#fafbfc; border-bottom:1px solid var(--line); }
+  .method .head { display:flex; justify-content:space-between; align-items:baseline; margin-bottom:24px; }
+  .method .head .lbl { font-size:11px; letter-spacing:0.28em; text-transform:uppercase; color:var(--muted); }
+  .method .head .v { font-family:"Playfair Display",Georgia,serif; font-style:italic; color:var(--muted); }
+  .method h3 { font-size:24px; font-weight:600; letter-spacing:-0.025em; margin-bottom:16px; }
+  .method .pillars { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; margin-top:24px; }
+  .method .pillar { padding:20px; background:#fff; border:1px solid var(--line); }
+  .method .pillar .n { font-family:"Playfair Display",Georgia,serif; font-style:italic; color:var(--cyan); font-size:14px; margin-bottom:8px; }
+  .method .pillar .t { font-weight:600; margin-bottom:8px; font-size:15px; }
+  .method .pillar .d { font-size:12px; color:var(--muted); line-height:1.7; }
+
+  /* ---------- Final CTA ---------- */
+  .final {
+    background:var(--navy); color:#fff; padding:64px;
+  }
+  .final .row { display:grid; grid-template-columns: 1.4fr 1fr; gap:48px; align-items:center; }
+  .final .kicker { color:var(--cyan); font-size:10px; letter-spacing:0.3em; text-transform:uppercase; margin-bottom:16px; }
+  .final h3 { font-size:32px; font-weight:300; line-height:1.2; letter-spacing:-0.03em; }
+  .final h3 strong { font-weight:600; }
+  .final h3 em { font-family:"Playfair Display",Georgia,serif; font-style:italic; color:var(--cyan); font-weight:400; }
+  .final p { color:rgba(255,255,255,0.65); font-size:14px; margin-top:16px; font-weight:300; line-height:1.8; }
+  .final .right { text-align:right; }
+  .final .right .lbl { color:rgba(255,255,255,0.5); font-size:10px; letter-spacing:0.25em; text-transform:uppercase; margin-bottom:8px; }
+  .final .right .price { font-family:"Playfair Display",Georgia,serif; font-size:48px; line-height:1; margin-bottom:8px; }
+  .final .right .sub { color:rgba(255,255,255,0.55); font-size:12px; margin-bottom:24px; }
+  .final .btn {
+    display:inline-flex; align-items:center; gap:10px; padding:14px 24px; background:var(--amber); color:var(--navy);
+    font-weight:600; font-size:14px; text-decoration:none; border:none; cursor:pointer; transition:transform .2s;
+  }
+  .final .btn:hover { transform:translateX(4px); }
+
+  /* ---------- Foot ---------- */
+  .pageFoot { padding:32px 64px; font-size:11px; color:var(--muted); display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px; }
+  .pageFoot .l .seal-text { font-family:"Playfair Display",Georgia,serif; color:var(--navy); font-style:italic; }
+
+  /* mobile */
+  @media (max-width: 760px) {
+    .doc { margin: 12px; }
+    .cover, .toc, .chapter, .founder, .method, .final, .pageFoot { padding: 32px 24px; }
+    .seal { top: 24px; right: 24px; width: 80px; height: 80px; }
+    .seal .mid { font-size: 18px; }
+    .cover .ribbon { grid-template-columns: 1fr 1fr; }
+    .chapter .ch-head { grid-template-columns: 1fr; gap: 8px; }
+    .chapter .ch-head .num { font-size: 56px; }
+    .kpi-row, .method .pillars { grid-template-columns: 1fr; }
+    .matrix .row { grid-template-columns: 40px 1fr 80px; gap:8px; }
+    .matrix .row > div:nth-child(4), .matrix .row > div:nth-child(5) { display:none; }
+    .roadmap::before { left:60px; }
+    .road-row { grid-template-columns: 50px 16px 1fr; }
+    .road-row .when { font-size:14px; }
+    .founder .grid, .final .row { grid-template-columns: 1fr; gap:28px; }
+    .final .right { text-align:left; }
+  }
+</style>
+</head>
+<body>
+<div class="doc">
+
+  <!-- COVER -->
+  <header class="cover">
+    <div class="seal">
+      <div class="top">KR · v3.2</div>
+      <div class="mid">A+</div>
+      <div class="btm">Methodology</div>
+    </div>
+    <div class="brand-row">
+      <span class="lock">KR Consulting</span>
+      <span class="div"></span>
+      <span class="tag">Online</span>
+    </div>
+    <div class="kicker"><span class="bar"></span>AI Detailed Diagnostic Report · Sample · v1.0</div>
+    <h1>
+      <strong>동성정밀(주)</strong>의<br/>
+      <em>세계 최고 경쟁력</em>으로 가는<br/>
+      종합 진단 리포트
+    </h1>
+    <p class="pre">Prepared exclusively for 김동성 대표 · 30년 KR 방법론 기반 심층 분석</p>
+    <div class="ribbon">
+      <div><div class="lbl">발행일</div><div class="val serif-num">2026.04.17</div></div>
+      <div><div class="lbl">방법론</div><div class="val">KR Methodology v3.2</div></div>
+      <div><div class="lbl">분량</div><div class="val">8 chapters · 약 20p</div></div>
+      <div><div class="lbl">분석 범위</div><div class="val">5 영역 · 17 KPI · 표본 372사</div></div>
+    </div>
+  </header>
+
+  <!-- TOC -->
+  <section class="toc">
+    <div class="head">
+      <span class="lbl">Table of Contents</span>
+      <span class="meta">Eight Chapters · Twenty Pages</span>
+    </div>
+    <h2><strong>차례</strong></h2>
+    <div class="toc-list">
+      <div class="row"><div class="n">01</div><div class="t">Executive Summary · 핵심 진단 한 페이지 요약</div><div class="pg">03</div></div>
+      <div class="row"><div class="n">02</div><div class="t">종합 경쟁력 평가 · 5대 영역 점수와 업계 벤치마크</div><div class="pg">05</div></div>
+      <div class="row"><div class="n">03</div><div class="t">원가 구조 분석 · 재료비·인건비·경비 정밀 분해</div><div class="pg">08</div></div>
+      <div class="row"><div class="n">04</div><div class="t">품질·프로세스 진단 · 린 7대 낭비 체크</div><div class="pg">11</div></div>
+      <div class="row"><div class="n">05</div><div class="t">Top 5 개선 과제 · 우선순위 매트릭스</div><div class="pg">13</div></div>
+      <div class="row"><div class="n">06</div><div class="t">30 / 90 / 365일 실행 로드맵</div><div class="pg">15</div></div>
+      <div class="row"><div class="n">07</div><div class="t">전문가 1:1 세션 추천 주제</div><div class="pg">18</div></div>
+      <div class="row"><div class="n">08</div><div class="t">대표 메시지 · 방법론 부록</div><div class="pg">20</div></div>
+    </div>
+  </section>
+
+  <!-- CH 01 EXEC -->
+  <section class="chapter">
+    <div class="ch-head">
+      <div class="num num">01</div>
+      <div class="meta">
+        <div class="lbl">Chapter 01 · Executive Summary</div>
+        <h2>한 페이지로 읽는 진단 결론</h2>
+      </div>
+    </div>
+    <p class="lede">
+      귀사는 <strong>품질 영역에서 업계 상위 12%</strong>의 역량을 보유하고 있으나,
+      원가 구조 투명성과 조직 확장 속도에서 개선 여지가 발견됩니다.
+      향후 6개월 내 원가 정밀 진단과 핵심 인력 확보를 병행할 경우,
+      <strong>영업이익률을 현재의 1.5배 수준</strong>으로 끌어올릴 수 있을 것으로 추정됩니다.
+    </p>
+
+    <div class="callout">
+      <div class="lbl">Key Verdict · 핵심 판단</div>
+      <p>"<strong>품질은 이미 세계 수준</strong>입니다. 다음 12개월의 승부처는 <strong>원가 가시성과 조직</strong>이며, 이 두 축을 동시에 흔들지 못하면 매출 성장이 이익으로 환산되지 않습니다." — KR Methodology Engine</p>
+    </div>
+
+    <div class="kpi-row">
+      <div class="kpi strong">
+        <div class="lbl">Strength · 강점</div>
+        <div class="val">품질</div>
+        <div class="sub">불량률 0.8% · 동종업계 상위 12%</div>
+      </div>
+      <div class="kpi opp">
+        <div class="lbl">Opportunity · 기회</div>
+        <div class="val">원가</div>
+        <div class="sub">재료비 -8~12% 잠재 · 영업이익 +50%</div>
+      </div>
+      <div class="kpi risk">
+        <div class="lbl">Risk · 과제</div>
+        <div class="val">조직</div>
+        <div class="sub">기술인력 충원 지연 · 6개월 임계</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CH 02 SCORE -->
+  <section class="chapter">
+    <div class="ch-head">
+      <div class="num num">02</div>
+      <div class="meta">
+        <div class="lbl">Chapter 02 · Competitive Scoring</div>
+        <h2>5대 영역 점수 · 업계 벤치마크</h2>
+      </div>
+    </div>
+    <p class="lede">
+      KR 방법론은 모든 진단을 <strong>시장성 / 원가 / 품질 / 조직 / 실행</strong>의 5개 축으로 환산합니다.
+      각 영역은 17개 세부 KPI로 산출되며, 동종업계 표본 372사와 정규화 비교됩니다.
+    </p>
+
+    <div style="display:grid; grid-template-columns: 1.2fr 1fr; gap:40px; margin-top:24px; align-items:center;">
+      <div>
+        <div class="matrix" style="margin-top:0;">
+          <div class="row" style="font-weight:600; color:var(--navy); border-bottom-color:var(--navy);">
+            <div>영역</div><div>지표 요약</div><div>점수</div><div></div><div>벤치마크</div>
+          </div>
+          <div class="row">
+            <div class="p">시장성</div>
+            <div class="t" style="font-weight:400;">고객 다각화 · 시장 점유</div>
+            <div class="effect">72</div><div></div>
+            <div><span class="pill m">+9 vs 평균</span></div>
+          </div>
+          <div class="row">
+            <div class="p">원가</div>
+            <div class="t" style="font-weight:400;">재료·인건비·경비 비중</div>
+            <div class="effect">58</div><div></div>
+            <div><span class="pill h">−5 vs 평균</span></div>
+          </div>
+          <div class="row">
+            <div class="p">품질</div>
+            <div class="t" style="font-weight:400;">불량률 · 클레임 · 표준화</div>
+            <div class="effect">81</div><div></div>
+            <div><span class="pill m">+18 vs 평균</span></div>
+          </div>
+          <div class="row">
+            <div class="p">조직</div>
+            <div class="t" style="font-weight:400;">기술인력 · 승계 · R&D</div>
+            <div class="effect">64</div><div></div>
+            <div><span class="pill h">−2 vs 평균</span></div>
+          </div>
+          <div class="row">
+            <div class="p">실행</div>
+            <div class="t" style="font-weight:400;">의사결정 속도 · 디지털화</div>
+            <div class="effect">65</div><div></div>
+            <div><span class="pill l">평균 수준</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div style="text-align:center;">
+        <svg viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg" style="max-width:280px; width:100%;">
+          <g fill="none" stroke="#e2e8f0" stroke-width="1">
+            <polygon points="160,40 274.13,118.55 230.59,250.45 89.41,250.45 45.87,118.55"/>
+            <polygon points="160,70 244.6,128.91 211.94,228.18 108.06,228.18 75.4,128.91"/>
+            <polygon points="160,100 215.07,139.27 193.29,205.91 126.71,205.91 104.93,139.27"/>
+          </g>
+          <g stroke="#e2e8f0" stroke-width="1">
+            <line x1="160" y1="160" x2="160" y2="40"/>
+            <line x1="160" y1="160" x2="274.13" y2="118.55"/>
+            <line x1="160" y1="160" x2="230.59" y2="250.45"/>
+            <line x1="160" y1="160" x2="89.41" y2="250.45"/>
+            <line x1="160" y1="160" x2="45.87" y2="118.55"/>
+          </g>
+          <!-- benchmark (gray dashed) -->
+          <polygon points="160,87.4 207.39,128.55 184.76,221.36 134.85,222.06 102.66,134.46"
+                   fill="none" stroke="#94a3b8" stroke-width="1" stroke-dasharray="3 3"/>
+          <!-- our score -->
+          <polygon points="160,73.6 226.07,124.61 199.66,224.55 116.32,222.69 78.81,127.15"
+                   fill="rgba(0,169,244,0.18)" stroke="#00a9f4" stroke-width="2"/>
+          <g fill="#00a9f4">
+            <circle cx="160" cy="73.6" r="4"/>
+            <circle cx="226.07" cy="124.61" r="4"/>
+            <circle cx="199.66" cy="224.55" r="4"/>
+            <circle cx="116.32" cy="222.69" r="4"/>
+            <circle cx="78.81" cy="127.15" r="4"/>
+          </g>
+          <g font-family="Pretendard, sans-serif" font-size="11" fill="#475569">
+            <text x="160" y="28" text-anchor="middle">시장성</text>
+            <text x="290" y="116" text-anchor="middle">원가</text>
+            <text x="240" y="270" text-anchor="middle">품질</text>
+            <text x="80" y="270" text-anchor="middle">조직</text>
+            <text x="30" y="116" text-anchor="middle">실행</text>
+          </g>
+        </svg>
+        <div style="font-size:10px; color:var(--muted); letter-spacing:0.18em; text-transform:uppercase; margin-top:8px;">
+          <span style="color:var(--cyan);">●</span> 귀사 &nbsp; <span style="color:#94a3b8;">┄┄</span> 업계 평균
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CH 03 COST -->
+  <section class="chapter">
+    <div class="ch-head">
+      <div class="num num">03</div>
+      <div class="meta">
+        <div class="lbl">Chapter 03 · Cost Structure</div>
+        <h2>원가 구조 정밀 분해</h2>
+      </div>
+    </div>
+    <p class="lede">
+      KR 방법론의 <strong>"원가는 곧 회사의 진실"</strong> 원칙에 따라, 매출 100원 대비 비용 흐름을 항목별로 분해했습니다.
+      재료비 비중이 산업 평균 대비 8.4%p 높게 추정되며, 이는 단일 가장 큰 영업이익 개선 레버입니다.
+    </p>
+
+    <table class="cost">
+      <thead>
+        <tr>
+          <th>비용 항목</th>
+          <th style="text-align:right;">귀사 (%)</th>
+          <th style="text-align:right;">업계 평균 (%)</th>
+          <th style="text-align:right;">갭</th>
+          <th>진단</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>재료비</td>
+          <td class="num">62.4</td>
+          <td class="num">54.0</td>
+          <td class="num">+8.4<span class="delta down">개선 필요</span></td>
+          <td>구매 단가 협상 · 대체 공급처</td>
+        </tr>
+        <tr>
+          <td>인건비</td>
+          <td class="num">17.2</td>
+          <td class="num">19.5</td>
+          <td class="num">−2.3<span class="delta up">양호</span></td>
+          <td>생산성 우위 (1인당 매출 +12%)</td>
+        </tr>
+        <tr>
+          <td>제조경비</td>
+          <td class="num">8.5</td>
+          <td class="num">9.1</td>
+          <td class="num">−0.6<span class="delta up">양호</span></td>
+          <td>에너지 효율 평균 이상</td>
+        </tr>
+        <tr>
+          <td>판관비</td>
+          <td class="num">7.8</td>
+          <td class="num">8.6</td>
+          <td class="num">−0.8<span class="delta up">양호</span></td>
+          <td>린 영업조직 운영</td>
+        </tr>
+        <tr>
+          <td>영업이익</td>
+          <td class="num">4.1</td>
+          <td class="num">8.8</td>
+          <td class="num">−4.7<span class="delta down">잠재 +4.7p</span></td>
+          <td>재료비 정상화 시 12.5% 도달</td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td>합계 (매출 100 기준)</td>
+          <td class="num">100.0</td>
+          <td class="num">100.0</td>
+          <td colspan="2"></td>
+        </tr>
+      </tfoot>
+    </table>
+
+    <div class="callout" style="margin-top:32px;">
+      <div class="lbl">KR 30년 인사이트</div>
+      <p>"중소 제조기업의 80%가 <strong>재료비를 '시장 가격'이라 믿고 협상을 포기</strong>합니다. 그러나 우리가 추적한 1,200건 사례에서 <strong>평균 6.2%</strong>의 단가 인하가 가능했습니다. 핵심은 '단가'가 아니라 <strong>'규격 표준화'와 '결제 조건'</strong>입니다."</p>
+    </div>
+  </section>
+
+  <!-- CH 05 TOP5 -->
+  <section class="chapter">
+    <div class="ch-head">
+      <div class="num num">05</div>
+      <div class="meta">
+        <div class="lbl">Chapter 05 · Action Priorities</div>
+        <h2>Top 5 개선 과제</h2>
+      </div>
+    </div>
+    <p class="lede">
+      모든 과제는 <strong>중요도 × 실행 난이도 × 효과</strong>의 3축 매트릭스로 우선순위가 매겨졌습니다.
+      P1과 P2는 90일 내 착수를 강력히 권장합니다.
+    </p>
+
+    <div class="matrix">
+      <div class="row">
+        <div>우선</div><div>과제</div><div>중요도</div><div>난이도</div><div>예상 효과</div>
+      </div>
+      <div class="row">
+        <div class="p">P1</div>
+        <div class="t">재료비 구조 정밀 재분석 + 공급처 이원화</div>
+        <div><span class="pill h">매우 높음</span></div>
+        <div><span class="pill m">중간</span></div>
+        <div class="effect">−8~12%</div>
+      </div>
+      <div class="row">
+        <div class="p">P2</div>
+        <div class="t">핵심 공정 표준화 (린 방식)</div>
+        <div><span class="pill h">높음</span></div>
+        <div><span class="pill m">중간</span></div>
+        <div class="effect">불량률 −40%</div>
+      </div>
+      <div class="row">
+        <div class="p">P3</div>
+        <div class="t">기술직 3인 순차 채용 (설계 1 · 품질 2)</div>
+        <div><span class="pill h">높음</span></div>
+        <div><span class="pill h">높음</span></div>
+        <div class="effect">생산능력 +25%</div>
+      </div>
+      <div class="row">
+        <div class="p">P4</div>
+        <div class="t">ERP 원가 모듈 리모델링 + 가시성 대시보드</div>
+        <div><span class="pill m">중간</span></div>
+        <div><span class="pill l">낮음</span></div>
+        <div class="effect">의사결정 +30%</div>
+      </div>
+      <div class="row">
+        <div class="p">P5</div>
+        <div class="t">주요 1차 협력사 BCP 강화</div>
+        <div><span class="pill m">중간</span></div>
+        <div><span class="pill m">중간</span></div>
+        <div class="effect">납기 안정 +95%</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CH 06 ROADMAP -->
+  <section class="chapter">
+    <div class="ch-head">
+      <div class="num num">06</div>
+      <div class="meta">
+        <div class="lbl">Chapter 06 · Execution Roadmap</div>
+        <h2>30 / 90 / 365일 실행 로드맵</h2>
+      </div>
+    </div>
+    <p class="lede">
+      이강락 대표 30년 컨설팅의 핵심 원칙은 <strong>"30일에 보이지 않는 변화는 변화가 아니다"</strong>입니다.
+      각 단계는 측정 가능한 KPI로 종결되어야 합니다.
+    </p>
+
+    <div class="roadmap">
+      <div class="road-row">
+        <div class="when">30 Days<span class="sub">Quick Win</span></div>
+        <div class="dot"></div>
+        <div class="body">
+          <div class="t">원가 가시성 확보</div>
+          <div class="d">재료비 Top 10 품목 단가 협상 착수, ERP 원가 모듈에 실시간 단가 반영.</div>
+          <ul>
+            <li>구매팀 주간 단가 리뷰 미팅 정착</li>
+            <li>대체 공급처 후보 5개 발굴 (기 거래처 외)</li>
+            <li>KPI: 재료비 비중 −1.5%p</li>
+          </ul>
+        </div>
+      </div>
+      <div class="road-row">
+        <div class="when">90 Days<span class="sub">Foundation</span></div>
+        <div class="dot"></div>
+        <div class="body">
+          <div class="t">표준화와 채용의 동시 착수</div>
+          <div class="d">핵심 3개 공정의 표준작업서 작성, 기술직 1차 1인 입사.</div>
+          <ul>
+            <li>린 7대 낭비 진단 워크숍 (2회)</li>
+            <li>설계 엔지니어 1인 채용 완료</li>
+            <li>KPI: 불량률 −15%, 표준화율 60%</li>
+          </ul>
+        </div>
+      </div>
+      <div class="road-row">
+        <div class="when">365 Days<span class="sub">Transform</span></div>
+        <div class="dot"></div>
+        <div class="body">
+          <div class="t">구조적 경쟁력으로 전환</div>
+          <div class="d">재료비 정상화 + 표준화 완료 + 인력 3인 정착으로 영업이익률 2배 진입.</div>
+          <ul>
+            <li>주요 OEM 대상 단가 재협상 라운드 진입</li>
+            <li>품질 시스템 ISO 갱신 + 자동검사 도입</li>
+            <li>KPI: 영업이익률 8.5% 달성, 불량률 0.4%</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOUNDER QUOTE -->
+  <section class="founder">
+    <div class="grid">
+      <div class="photo-wrap">
+        <div class="photo">
+          <img src="/leekangrak.jpg" alt="이강락 대표"/>
+        </div>
+        <div class="badge">
+          <div class="lbl">Founded</div>
+          <div class="yr num">1998</div>
+        </div>
+      </div>
+      <div>
+        <div class="qmark">"</div>
+        <blockquote>
+          고객에게 <strong>충성한다</strong>.<br/>
+          고객이 <em>세계 최고의 경쟁력</em>을 갖도록,<br/>
+          고객이 목표로 하는 것을<br/>
+          <strong>이루도록 돕는다.</strong>
+        </blockquote>
+        <p style="font-size:14px; color:var(--muted); line-height:1.85; margin-bottom:16px; font-weight:300;">
+          이 한 문장이 27년 동안 우리의 모든 진단·제안·실행을 지배해 왔습니다.
+          기술이 아니라 <strong>고객의 결과</strong>가 우리의 KPI입니다.
+        </p>
+        <div class="signing">
+          <div class="who">
+            <div class="name">이강락</div>
+            <div class="role">KR컨설팅 대표 · 산업응용기술사 · 기계기술사 · 경영학 박사</div>
+          </div>
+          <div class="stamp">
+            27 YEARS · 3,000 PROJECTS
+            <span class="big">"만남은 있지만 헤어짐은 없다"</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- METHOD -->
+  <section class="method">
+    <div class="head">
+      <span class="lbl">Appendix · Methodology</span>
+      <span class="v">KR Methodology v3.2</span>
+    </div>
+    <h3>본 리포트가 따른 3개 원칙</h3>
+    <div class="pillars">
+      <div class="pillar">
+        <div class="n">i.</div>
+        <div class="t">측정 가능한 진단</div>
+        <div class="d">모든 평가는 17개 정량 KPI와 372사 표본의 정규화 비교로 산출됩니다. 직관에 의존한 의견은 배제됩니다.</div>
+      </div>
+      <div class="pillar">
+        <div class="n">ii.</div>
+        <div class="t">실행 가능한 처방</div>
+        <div class="d">"무엇을 해야 한다"가 아니라 "누가, 언제, 어떻게, 무엇으로 측정할 것인가"까지 정의해야 처방으로 인정합니다.</div>
+      </div>
+      <div class="pillar">
+        <div class="n">iii.</div>
+        <div class="t">고객의 결과로 검증</div>
+        <div class="d">컨설팅의 성공은 보고서가 아니라 6~12개월 후 고객의 손익계산서입니다. 모든 권고는 그 기준으로 다시 평가됩니다.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="final">
+    <div class="row">
+      <div>
+        <div class="kicker">Next Step · Expert 1:1 Session</div>
+        <h3>이 리포트의 <em>P1 ~ P3</em>를<br/>이강락 대표와 함께<br/><strong>실행 가능한 계획</strong>으로 만드세요</h3>
+        <p>
+          전문가 1:1 세션은 60분 · Zoom · 사전 자료 검토 포함입니다.<br/>
+          귀사의 실제 데이터로 P1 재료비 협상 시나리오를 함께 시뮬레이션합니다.
+        </p>
+      </div>
+      <div class="right">
+        <div class="lbl">전문가 1:1 세션</div>
+        <div class="price num">15<span style="font-size:24px; color:rgba(255,255,255,0.55); margin-left:4px;">만원~</span></div>
+        <div class="sub">이강락 대표 직접 상담 / 60분 / Zoom</div>
+        <a class="btn" href="/">홈으로 돌아가기 →</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="pageFoot">
+    <div class="l"><span class="seal-text">"고객의 결과가 우리의 KPI입니다"</span> · KR Consulting Online © 2026</div>
+    <div>본 문서는 샘플이며, 실제 리포트는 진단 입력값과 추가 인터뷰에 따라 달라집니다.</div>
+  </footer>
+
+</div>
+</body>
+</html>

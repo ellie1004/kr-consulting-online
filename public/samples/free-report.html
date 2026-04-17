@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>KR Consulting Online · 무료 자가진단 리포트 (샘플)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  @font-face {
+    font-family: "Pretendard";
+    font-weight: 45 920;
+    font-display: swap;
+    src: url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/PretendardVariable.woff2") format("woff2-variations");
+  }
+  :root {
+    --navy: #051c2c;
+    --navy-deep: #030f1a;
+    --cyan: #00a9f4;
+    --gray: #f3f4f4;
+    --line: rgba(5, 28, 44, 0.12);
+    --muted: rgba(5, 28, 44, 0.55);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    font-family: "Pretendard", system-ui, -apple-system, sans-serif;
+    color: var(--navy);
+    background: #ebeef1;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  .serif { font-family: "Playfair Display", Georgia, serif; font-weight: 400; }
+  .num { font-variant-numeric: tabular-nums; font-feature-settings: "tnum"; }
+  .page {
+    max-width: 880px;
+    margin: 32px auto;
+    background: #fff;
+    box-shadow: 0 24px 60px -20px rgba(5, 28, 44, 0.25), 0 8px 16px -4px rgba(5, 28, 44, 0.08);
+  }
+  /* ---- Cover ---- */
+  .cover {
+    background: var(--navy);
+    color: #fff;
+    padding: 64px 56px 56px;
+    position: relative;
+    overflow: hidden;
+  }
+  .cover::after {
+    content: ""; position: absolute; top: 0; right: -120px; width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(0,169,244,0.14) 0%, transparent 60%);
+  }
+  .brand {
+    display: flex; align-items: center; gap: 12px; margin-bottom: 56px; position: relative; z-index: 1;
+  }
+  .brand .lockup { font-family: "Playfair Display", Georgia, serif; font-size: 22px; letter-spacing: -0.01em; }
+  .brand .div { width: 1px; height: 18px; background: rgba(255,255,255,0.3); }
+  .brand .tag { color: var(--cyan); font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase; }
+  .cover .kicker {
+    display: inline-flex; align-items: center; gap: 12px; color: var(--cyan);
+    font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; margin-bottom: 24px; position: relative; z-index: 1;
+  }
+  .cover .kicker .bar { width: 24px; height: 1px; background: var(--cyan); }
+  .cover h1 {
+    font-weight: 300; font-size: clamp(28px, 4.5vw, 44px); line-height: 1.2; letter-spacing: -0.035em; margin-bottom: 12px; position: relative; z-index: 1;
+  }
+  .cover h1 strong { font-weight: 600; }
+  .cover .sub { color: rgba(255,255,255,0.65); font-size: 14px; margin-bottom: 48px; font-weight: 300; position: relative; z-index: 1; }
+  .cover .meta {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; padding-top: 24px;
+    border-top: 1px solid rgba(255,255,255,0.15); font-size: 12px; position: relative; z-index: 1;
+  }
+  .cover .meta .lbl { color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 0.18em; font-size: 10px; margin-bottom: 4px; }
+  .cover .meta .val { color: #fff; font-weight: 300; }
+  /* ---- Section ---- */
+  .section { padding: 56px 56px; border-bottom: 1px solid var(--line); }
+  .section .ch-num { font-family: "Playfair Display", Georgia, serif; font-size: 12px; color: var(--muted); letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 8px; }
+  .section h2 { font-size: 28px; font-weight: 600; letter-spacing: -0.025em; line-height: 1.25; margin-bottom: 24px; }
+  .section p.lede { font-size: 15px; color: var(--muted); max-width: 580px; line-height: 1.75; }
+  /* ---- Score Hero ---- */
+  .score-hero { display: grid; grid-template-columns: 1.1fr 1fr; gap: 48px; align-items: center; margin-top: 32px; }
+  .score-big { background: var(--navy); color: #fff; padding: 40px 36px; }
+  .score-big .lbl { font-size: 10px; color: var(--cyan); letter-spacing: 0.3em; text-transform: uppercase; margin-bottom: 16px; }
+  .score-big .num-big { font-family: "Playfair Display", Georgia, serif; font-weight: 400; font-size: 96px; line-height: 1; }
+  .score-big .num-big .of { font-size: 28px; color: rgba(255,255,255,0.45); margin-left: 8px; }
+  .score-big .tier { display: inline-block; padding: 6px 12px; border: 1px solid var(--cyan); color: var(--cyan); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; margin-top: 24px; }
+  .score-big .desc { color: rgba(255,255,255,0.7); font-size: 13px; line-height: 1.7; margin-top: 24px; font-weight: 300; }
+  /* ---- Radar ---- */
+  .radar-wrap { text-align: center; }
+  .radar-wrap svg { max-width: 320px; width: 100%; }
+  .radar-wrap .area-title { font-size: 11px; color: var(--muted); letter-spacing: 0.2em; text-transform: uppercase; margin-top: 8px; }
+  /* ---- Bars ---- */
+  .bars { margin-top: 40px; display: grid; gap: 16px; }
+  .bar-row { display: grid; grid-template-columns: 100px 1fr 56px 80px; gap: 16px; align-items: center; }
+  .bar-row .name { font-size: 14px; font-weight: 500; }
+  .bar-row .track { height: 6px; background: var(--gray); position: relative; overflow: hidden; }
+  .bar-row .fill { position: absolute; left: 0; top: 0; bottom: 0; background: var(--navy); }
+  .bar-row .score { font-family: "Playfair Display", Georgia, serif; font-size: 22px; text-align: right; }
+  .bar-row .delta { font-size: 11px; color: var(--muted); text-align: right; letter-spacing: 0.04em; }
+  .bar-row .delta.up { color: #047857; }
+  .bar-row .delta.down { color: #b91c1c; }
+  /* ---- Insights ---- */
+  .insights { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; margin-top: 32px; border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
+  .insight { padding: 28px 24px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .insight .ic { font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase; margin-bottom: 12px; }
+  .insight.strong .ic { color: #047857; }
+  .insight.opp .ic { color: var(--cyan); }
+  .insight.risk .ic { color: #b45309; }
+  .insight .t { font-size: 18px; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 8px; }
+  .insight .d { font-size: 13px; color: var(--muted); line-height: 1.7; }
+  /* ---- Quote ---- */
+  .quote-section { background: var(--gray); padding: 64px 56px; position: relative; overflow: hidden; }
+  .quote-section::before {
+    content: ""; position: absolute; top: 0; left: -80px; width: 280px; height: 280px;
+    background: radial-gradient(circle, rgba(0,169,244,0.08) 0%, transparent 60%);
+  }
+  .quote-section .grid { display: grid; grid-template-columns: 0.6fr 1fr; gap: 40px; align-items: center; position: relative; z-index: 1; }
+  .quote-section .photo {
+    aspect-ratio: 4/5; background: #ddd; overflow: hidden; position: relative;
+  }
+  .quote-section .photo::after {
+    content: ""; position: absolute; bottom: -12px; right: -12px; background: var(--navy); color: #fff; padding: 12px 16px;
+  }
+  .quote-section .photo img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
+  .quote-section .badge { position: absolute; bottom: -12px; right: -12px; background: var(--navy); color: #fff; padding: 10px 14px; }
+  .quote-section .badge .lbl { font-size: 9px; color: var(--cyan); letter-spacing: 0.25em; text-transform: uppercase; margin-bottom: 2px; }
+  .quote-section .badge .yr { font-family: "Playfair Display", Georgia, serif; font-size: 22px; }
+  .quote-section .qmark { font-family: "Playfair Display", Georgia, serif; color: var(--cyan); font-size: 80px; line-height: 0.8; margin-bottom: 16px; }
+  .quote-section blockquote {
+    font-size: clamp(20px, 2.4vw, 28px); font-weight: 300; line-height: 1.45; letter-spacing: -0.025em; margin-bottom: 24px;
+  }
+  .quote-section blockquote em { font-family: "Playfair Display", Georgia, serif; font-style: italic; font-weight: 400; color: var(--navy); }
+  .quote-section .sig { padding-top: 16px; border-top: 1px solid rgba(5,28,44,0.15); font-size: 13px; }
+  .quote-section .sig .name { font-weight: 600; }
+  .quote-section .sig .role { color: var(--muted); margin-top: 2px; font-size: 12px; }
+  /* ---- CTA ---- */
+  .cta { background: var(--navy); color: #fff; padding: 56px; }
+  .cta .row { display: grid; grid-template-columns: 1.4fr 1fr; gap: 40px; align-items: center; }
+  .cta .kicker { color: var(--cyan); font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; margin-bottom: 16px; }
+  .cta h3 { font-size: 28px; font-weight: 300; line-height: 1.3; letter-spacing: -0.025em; }
+  .cta h3 strong { font-weight: 600; }
+  .cta ul { list-style: none; margin-top: 20px; font-size: 13px; color: rgba(255,255,255,0.7); font-weight: 300; }
+  .cta ul li { padding-left: 20px; position: relative; margin-bottom: 6px; }
+  .cta ul li::before { content: "—"; color: var(--cyan); position: absolute; left: 0; }
+  .cta-btn-wrap { text-align: right; }
+  .cta .price-strike { color: rgba(255,255,255,0.45); text-decoration: line-through; font-size: 13px; }
+  .cta .price-now { color: #fbbf24; font-family: "Playfair Display", Georgia, serif; font-size: 56px; line-height: 1; margin: 4px 0; }
+  .cta .badge-now { color: rgba(255,255,255,0.6); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 20px; }
+  .cta .btn {
+    display: inline-flex; align-items: center; gap: 10px; padding: 14px 24px; background: #fbbf24; color: var(--navy);
+    font-weight: 600; font-size: 14px; text-decoration: none; border: none; cursor: pointer; transition: transform .2s;
+  }
+  .cta .btn:hover { transform: translateX(4px); }
+  /* ---- Footer ---- */
+  .foot { padding: 28px 56px; font-size: 11px; color: var(--muted); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+  .foot .left .seal { font-family: "Playfair Display", Georgia, serif; color: var(--navy); }
+  /* mobile */
+  @media (max-width: 720px) {
+    .page { margin: 12px; }
+    .cover, .section, .quote-section, .cta { padding: 32px 24px; }
+    .score-hero, .quote-section .grid, .cta .row { grid-template-columns: 1fr; gap: 28px; }
+    .insights { grid-template-columns: 1fr; }
+    .bar-row { grid-template-columns: 80px 1fr 50px; }
+    .bar-row .delta { display: none; }
+    .cta-btn-wrap { text-align: left; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- COVER -->
+  <header class="cover">
+    <div class="brand">
+      <span class="lockup">KR Consulting</span>
+      <span class="div"></span>
+      <span class="tag">Online</span>
+    </div>
+    <div class="kicker"><span class="bar"></span>Free Self-Diagnostic Report · Sample</div>
+    <h1><strong>동성정밀(주)</strong>의<br/>종합 경쟁력 진단 리포트</h1>
+    <p class="sub">15분 자가진단 기반 · 5대 영역 종합 분석 · 이강락 대표 방법론 v3.2</p>
+    <div class="meta">
+      <div><div class="lbl">발행일</div><div class="val">2026년 4월 17일</div></div>
+      <div><div class="lbl">분석 영역</div><div class="val">시장성 · 원가 · 품질 · 조직 · 실행</div></div>
+      <div><div class="lbl">소요 시간</div><div class="val num">17분 32초</div></div>
+    </div>
+  </header>
+
+  <!-- SCORE -->
+  <section class="section">
+    <div class="ch-num">01 — Overall Diagnosis</div>
+    <h2>한눈에 보는 종합 경쟁력</h2>
+    <p class="lede">5개 영역 가중 평균 점수와 동종업계 표본 372사 대비 백분위 순위입니다.</p>
+
+    <div class="score-hero">
+      <div class="score-big">
+        <div class="lbl">Overall Score</div>
+        <div class="num-big num">68<span class="of">/ 100</span></div>
+        <div class="tier">Tier · B+ · 상위 35%</div>
+        <div class="desc">중상 수준의 종합 경쟁력. 품질 영역이 강점이며 원가 구조 투명성과 조직 확장 속도에서 개선 여지가 발견됩니다.</div>
+      </div>
+
+      <div class="radar-wrap">
+        <svg viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg">
+          <!-- grid -->
+          <g fill="none" stroke="#e2e8f0" stroke-width="1">
+            <polygon points="160,40 274.13,118.55 230.59,250.45 89.41,250.45 45.87,118.55"/>
+            <polygon points="160,70 244.6,128.91 211.94,228.18 108.06,228.18 75.4,128.91"/>
+            <polygon points="160,100 215.07,139.27 193.29,205.91 126.71,205.91 104.93,139.27"/>
+            <polygon points="160,130 185.53,149.64 174.65,183.64 145.35,183.64 134.47,149.64"/>
+          </g>
+          <!-- axes -->
+          <g stroke="#e2e8f0" stroke-width="1">
+            <line x1="160" y1="160" x2="160" y2="40"/>
+            <line x1="160" y1="160" x2="274.13" y2="118.55"/>
+            <line x1="160" y1="160" x2="230.59" y2="250.45"/>
+            <line x1="160" y1="160" x2="89.41" y2="250.45"/>
+            <line x1="160" y1="160" x2="45.87" y2="118.55"/>
+          </g>
+          <!-- data: market 72, cost 58, quality 81, org 64, execution 65 -->
+          <polygon points="160,73.6 226.07,124.61 199.66,224.55 116.32,222.69 78.81,127.15"
+                   fill="rgba(0,169,244,0.15)" stroke="#00a9f4" stroke-width="2"/>
+          <g fill="#00a9f4">
+            <circle cx="160" cy="73.6" r="4"/>
+            <circle cx="226.07" cy="124.61" r="4"/>
+            <circle cx="199.66" cy="224.55" r="4"/>
+            <circle cx="116.32" cy="222.69" r="4"/>
+            <circle cx="78.81" cy="127.15" r="4"/>
+          </g>
+          <!-- labels -->
+          <g font-family="Pretendard, sans-serif" font-size="11" fill="#475569">
+            <text x="160" y="28" text-anchor="middle">시장성</text>
+            <text x="290" y="116" text-anchor="middle">원가 구조</text>
+            <text x="240" y="270" text-anchor="middle">품질</text>
+            <text x="80" y="270" text-anchor="middle">조직 역량</text>
+            <text x="30" y="116" text-anchor="middle">실행력</text>
+          </g>
+        </svg>
+        <div class="area-title">5-Axis Performance Map</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BARS -->
+  <section class="section">
+    <div class="ch-num">02 — Area Breakdown</div>
+    <h2>영역별 점수 · 업계 평균 대비</h2>
+    <div class="bars">
+      <div class="bar-row">
+        <div class="name">시장성</div>
+        <div class="track"><div class="fill" style="width:72%"></div></div>
+        <div class="score num">72</div>
+        <div class="delta up">+9 vs 평균</div>
+      </div>
+      <div class="bar-row">
+        <div class="name">원가 구조</div>
+        <div class="track"><div class="fill" style="width:58%"></div></div>
+        <div class="score num">58</div>
+        <div class="delta down">−5 vs 평균</div>
+      </div>
+      <div class="bar-row">
+        <div class="name">품질</div>
+        <div class="track"><div class="fill" style="width:81%"></div></div>
+        <div class="score num">81</div>
+        <div class="delta up">+18 vs 평균</div>
+      </div>
+      <div class="bar-row">
+        <div class="name">조직 역량</div>
+        <div class="track"><div class="fill" style="width:64%"></div></div>
+        <div class="score num">64</div>
+        <div class="delta down">−2 vs 평균</div>
+      </div>
+      <div class="bar-row">
+        <div class="name">실행력</div>
+        <div class="track"><div class="fill" style="width:65%"></div></div>
+        <div class="score num">65</div>
+        <div class="delta">평균 수준</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INSIGHTS -->
+  <section class="section">
+    <div class="ch-num">03 — Key Insights</div>
+    <h2>AI가 발견한 3가지 핵심</h2>
+    <div class="insights">
+      <div class="insight strong">
+        <div class="ic">Strength · 강점</div>
+        <div class="t">품질 시스템</div>
+        <div class="d">불량률 0.8%, 6시그마 수준 공정관리. 동종업계 상위 12%에 해당하며 대형 OEM 신뢰의 핵심 자산입니다.</div>
+      </div>
+      <div class="insight opp">
+        <div class="ic">Opportunity · 기회</div>
+        <div class="t">원가 최적화</div>
+        <div class="d">재료비 비중이 62%로 추정되어 산업 평균 대비 7~9%p 높습니다. 구매 단가 협상과 대체 공급처 발굴 시 영업이익률 1.5배 가능.</div>
+      </div>
+      <div class="insight risk">
+        <div class="ic">Watch · 주의</div>
+        <div class="t">조직 확장 속도</div>
+        <div class="d">매출 성장 25% 대비 핵심 기술인력 확보가 8% 수준에 머무름. 6개월 내 채용 파이프라인 강화가 시급합니다.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUOTE -->
+  <section class="quote-section">
+    <div class="grid">
+      <div class="photo">
+        <img src="/leekangrak.jpg" alt="이강락 대표"/>
+        <div class="badge">
+          <div class="lbl">Founded</div>
+          <div class="yr num">1998</div>
+        </div>
+      </div>
+      <div>
+        <div class="qmark">"</div>
+        <blockquote>
+          고객에게 충성한다.<br/>
+          고객이 <em>세계 최고의 경쟁력</em>을 갖도록,<br/>
+          고객이 목표로 하는 것을<br/>
+          <strong>이루도록 돕는다.</strong>
+        </blockquote>
+        <div class="sig">
+          <div class="name">이강락</div>
+          <div class="role">KR컨설팅 대표 · 산업응용기술사 · 1998년 창업 · 3,000건 컨설팅 수행</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta">
+    <div class="row">
+      <div>
+        <div class="kicker">Next Step · AI Detailed Report</div>
+        <h3><strong>20페이지 분량</strong>의<br/>상세 진단 리포트로<br/>업그레이드하세요</h3>
+        <ul>
+          <li>이강락 대표 30년 방법론 기반 심층 분석</li>
+          <li>30 / 90 / 365일 실행 로드맵</li>
+          <li>Top 5 개선 과제 · 예상 효과 시뮬레이션</li>
+          <li>전문가 1:1 세션 추천 주제 제공</li>
+        </ul>
+      </div>
+      <div class="cta-btn-wrap">
+        <div class="price-strike num">49,000원</div>
+        <div class="price-now num">29,000원</div>
+        <div class="badge-now">얼리버드 40% 할인</div>
+        <a class="btn" href="/samples/detailed-report.html">상세 리포트 샘플 보기 →</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <div class="left"><span class="serif">© 2026 KR Consulting Online</span> · 이강락 대표 방법론 v3.2 기반</div>
+    <div>본 문서는 샘플이며, 실제 데이터는 진단 입력값에 따라 달라집니다.</div>
+  </footer>
+
+</div>
+</body>
+</html>

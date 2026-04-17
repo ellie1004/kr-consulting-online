@@ -1,26 +1,63 @@
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap");
 @import "tailwindcss";
+
+@font-face {
+  font-family: "Pretendard";
+  font-weight: 45 920;
+  font-style: normal;
+  font-display: swap;
+  src: url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/PretendardVariable.woff2")
+    format("woff2-variations");
+}
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #051c2c;
+  --mck-navy: #051c2c;
+  --mck-navy-deep: #030f1a;
+  --mck-blue: #2251ff;
+  --mck-cyan: #00a9f4;
+  --mck-gray: #f3f4f4;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-mck-navy: var(--mck-navy);
+  --color-mck-navy-deep: var(--mck-navy-deep);
+  --color-mck-blue: var(--mck-blue);
+  --color-mck-cyan: var(--mck-cyan);
+  --color-mck-gray: var(--mck-gray);
+  --font-sans: "Pretendard", var(--font-noto-sans-kr), system-ui, -apple-system,
+    sans-serif;
+  --font-serif: "Playfair Display", "Noto Serif KR", Georgia, serif;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* 영문·숫자에만 serif, 한글은 Pretendard 유지 (light weight로 우아한 느낌) */
+.font-editorial {
+  font-family: "Playfair Display", "Pretendard", system-ui, sans-serif;
+  font-feature-settings: "liga", "kern";
+}
+
+/* 한글 헤드라인: 얇고 현대적으로 */
+.headline-kr {
+  font-family: "Pretendard", system-ui, sans-serif;
+  font-weight: 300;
+  letter-spacing: -0.035em;
+}
+
+.headline-kr-bold {
+  font-family: "Pretendard", system-ui, sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.035em;
+}
+
+/* 숫자·영문 전용 serif */
+.font-serif-en {
+  font-family: "Playfair Display", Georgia, serif;
 }
